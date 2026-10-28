@@ -1,5 +1,6 @@
 USE ProyectoTiendaOGA;
 GO
+
 IF EXISTS(
     SELECT 1 FROM sys.indexes
     WHERE name='IX_VentaRendimiento_Fecha'
@@ -9,8 +10,8 @@ IF EXISTS(
 
 IF EXISTS(
     SELECT 1 FROM sys.indexes
-    WHERE name='IX_VentaRendimiento_Fecha_Columnas'
+    WHERE name='IX_VentaRendimiento_Fecha_Cobertura'
       AND object_id=OBJECT_ID('VentaRendimiento')
 )
-    DROP INDEX IX_VentaRendimiento_Fecha_Columnas ON VentaRendimiento;
+    DROP INDEX IX_VentaRendimiento_Fecha_Cobertura ON VentaRendimiento;
 GO
