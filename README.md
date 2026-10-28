@@ -4,6 +4,16 @@
 
 Base de datos relacional para la gestión de clientes, productos, stock, compras, ventas y cobranzas de Tienda OGA.
 
+---
+
+<div align="center">
+
+![GIF épico de Tienda OGA](https://github.com/user-attachments/assets/28ef8640-dde2-497b-95b0-6c0df0e6ea0b)
+
+</div>
+
+---
+
 ## Tecnologías
 - Microsoft SQL Server / T-SQL
 - ERDPlus para modelado conceptual
