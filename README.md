@@ -1,8 +1,23 @@
+<div align="center">
+
 # 🗄️ Proyecto Bases de Datos I — Tienda OGA
 
-**Equipo 30 — FaCENA | UNNE — 2026**
+### Equipo 30 · FaCENA | UNNE · 2026
 
-Base de datos relacional para la gestión de clientes, productos, stock, compras, ventas y cobranzas de Tienda OGA.
+**Diseño, normalización e implementación de una base de datos relacional para la gestión de ventas, stock, compras y cobranzas de Tienda OGA.**
+
+<br>
+
+[![Last Commit](https://img.shields.io/github/last-commit/CamilaHornoss/Prueba?style=for-the-badge&logo=git&logoColor=white&color=7c3aed)](https://github.com/CamilaHornoss/Prueba/commits/main)
+[![Commits](https://img.shields.io/github/commit-activity/t/CamilaHornoss/Prueba?style=for-the-badge&logo=github&logoColor=white&color=10b981)](https://github.com/CamilaHornoss/Prueba/commits/main)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-T--SQL-CC292B?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)
+![3FN](https://img.shields.io/badge/Normalización-3FN-0ea5e9?style=for-the-badge)
+![ERDPlus](https://img.shields.io/badge/ERDPlus-DER-f59e0b?style=for-the-badge&logo=diagramsdotnet&logoColor=white)
+![GitHub](https://img.shields.io/badge/Git%20%26%20GitHub-Control%20de%20versiones-181717?style=for-the-badge&logo=github&logoColor=white)
+
+<br>
+
+</div>
 
 ---
 
@@ -14,33 +29,69 @@ Base de datos relacional para la gestión de clientes, productos, stock, compras
 
 ---
 
-## Tecnologías
-- Microsoft SQL Server / T-SQL
-- ERDPlus para modelado conceptual
-- Git y GitHub para control de versiones
+## 📖 Sobre el proyecto
 
-## Etapas
-| Etapa | Producto | Ubicación |
-|---|---|---|
-| I. Requerimientos | Requerimientos + reglas de negocio | `docs/etapa-01/` |
-| II. Modelado | DER + modelo relacional + 3FN | `docs/etapa-02/` |
-| III. Implementación | DDL + DML | `docs/etapa-03/`, `sql/ddl/`, `sql/dml/` |
-| IV. Consultas | SQL + casos de uso | `docs/etapa-04/`, `sql/consultas/` |
-| V. Temas técnicos | Procedimientos, funciones, transacciones, triggers, seguridad e índices | `docs/etapa-05/`, `sql/tecnico/` |
+Proyecto integrador de **Bases de Datos I** orientado a **Tienda OGA**, un comercio minorista polirrubro.
 
-## Estructura
+La solución centraliza la información necesaria para administrar las operaciones principales del negocio mediante **Microsoft SQL Server** y aplica los contenidos desarrollados durante la asignatura: modelado conceptual, transformación al modelo relacional, normalización hasta **Tercera Forma Normal (3FN)**, DDL, DML, consultas SQL y mecanismos avanzados del SGBD.
+
+### ✨ El sistema contempla
+
+- 👤 **Clientes:** datos personales, contacto y domicilio.
+- 📦 **Productos y stock:** catálogo, categorías, precios y existencias.
+- 🚚 **Compras:** proveedores, órdenes y detalle de productos adquiridos.
+- 🛒 **Ventas:** encabezado, detalle y conservación del precio histórico.
+- 💳 **Pagos y cobranzas:** múltiples medios de pago y referencias de cobro.
+- 📊 **Consultas de negocio:** comprobantes, reportes agregados y análisis avanzados.
+- 🧠 **Temas técnicos:** procedimientos, funciones, transacciones, triggers, seguridad e índices.
+
+---
+
+## 🛠️ Tecnologías
+
+<div align="center">
+
+| Herramienta | Uso en el proyecto |
+| :--- | :--- |
+| **Microsoft SQL Server / T-SQL** | Implementación y administración de la base de datos |
+| **SQL Server Management Studio (SSMS)** | Ejecución, pruebas y análisis de consultas |
+| **ERDPlus** | Diagrama Entidad–Relación con notación P. Chen |
+| **Git & GitHub** | Versionado, trazabilidad y trabajo colaborativo |
+
+</div>
+
+---
+
+## 🎯 Etapas del proyecto
+
+| Etapa | Pregunta que responde | Producto | Ubicación | Estado |
+| :--- | :--- | :--- | :--- | :---: |
+| **I. Requerimientos** | ¿Qué necesita el negocio? | Requerimientos + reglas de negocio | `docs/etapa-01/` | ✅ |
+| **II. Modelado** | ¿Cómo representamos la información? | DER + modelo relacional + 3FN | `docs/etapa-02/` | ✅ |
+| **III. Implementación** | ¿Cómo construimos la BD? | DDL + DML | `docs/etapa-03/`, `sql/ddl/`, `sql/dml/` | ✅ |
+| **IV. Consultas** | ¿Cómo obtenemos información? | SQL + casos de uso | `docs/etapa-04/`, `sql/consultas/` | ✅ |
+| **V. Temas técnicos** | ¿Cómo hacemos la solución más robusta? | Procedimientos, funciones, transacciones, triggers, seguridad e índices | `docs/etapa-05/`, `sql/tecnico/` | 🧪 |
+
+> 🧪 La Etapa V contiene la implementación y scripts de demostración; las mediciones dependientes de la instancia, como planes de ejecución y tiempos, deben validarse en SSMS.
+
+---
+
+## 📂 Estructura del repositorio
+
 ```text
-proyecto-bd1-equipo_30/
+Prueba/
+│
 ├── docs/
-│   ├── etapa-01/
-│   ├── etapa-02/
-│   ├── etapa-03/
-│   ├── etapa-04/
-│   └── etapa-05/
+│   ├── etapa-01/        # Requerimientos y reglas de negocio
+│   ├── etapa-02/        # Modelo relacional y normalización
+│   ├── etapa-03/        # Implementación e integridad
+│   ├── etapa-04/        # Consultas y casos de uso
+│   └── etapa-05/        # Temas técnicos
+│
 ├── sql/
-│   ├── ddl/
-│   ├── dml/
-│   ├── consultas/
+│   ├── ddl/             # Creación de la base y tablas
+│   ├── dml/             # Datos de prueba
+│   ├── consultas/       # Consultas de negocio
 │   └── tecnico/
 │       ├── procedimientos/
 │       ├── funciones/
@@ -48,13 +99,72 @@ proyecto-bd1-equipo_30/
 │       ├── triggers/
 │       ├── seguridad/
 │       └── indices/
+│
 └── README.md
 ```
 
-## Ejecución
-1. Ejecutar `sql/ddl/crear_bd.sql`.
-2. Ejecutar `sql/dml/datos_prueba.sql`.
-3. Ejecutar las consultas de `sql/consultas/`.
-4. Ejecutar los scripts de `sql/tecnico/` según cada tema.
+---
 
-> Los scripts fueron organizados para ser ejecutados sobre SQL Server y la base `ProyectoTiendaOGA`.
+## 🚀 Puesta en marcha
+
+Ejecutar los scripts en **SQL Server Management Studio (SSMS)** siguiendo este orden:
+
+1. `sql/ddl/crear_bd.sql`
+2. `sql/dml/datos_prueba.sql`
+3. Scripts de `sql/consultas/`
+4. Scripts de `sql/tecnico/` según el tema que se desee probar
+
+La base utilizada por los scripts es:
+
+```text
+ProyectoTiendaOGA
+```
+
+---
+
+## 🔎 Consultas implementadas
+
+- 🧾 **Comprobante de venta:** encabezado, detalle, subtotales y total acumulado.
+- 📈 **Informe de ventas:** agregación por categoría y rango de fechas.
+- 🧮 **Consulta avanzada:** combinación de múltiples tablas mediante `JOIN`, agregaciones, `HAVING` y subconsultas.
+
+---
+
+## ⚙️ Temas técnicos
+
+La Etapa V incorpora prácticas de robustez, seguridad y optimización en SQL Server:
+
+- **Procedimientos almacenados:** operaciones `INSERT`, `UPDATE` y `DELETE`.
+- **Funciones:** cálculos reutilizables sobre los datos del negocio.
+- **Transacciones:** `COMMIT`, `ROLLBACK`, manejo de errores y atomicidad.
+- **Triggers:** auditoría de cambios y control de eliminaciones.
+- **Seguridad:** usuarios, roles, permisos de lectura y permisos de ejecución.
+- **Índices:** carga masiva, mediciones con `STATISTICS IO/TIME` y comparación de estrategias de indexación.
+
+---
+
+## 👥 Integrantes
+
+<div align="center">
+
+| Integrante | GitHub |
+| :--- | :--- |
+| **Christian Gabriel Jesús Gómez** | [@Chris10TS](https://github.com/Chris10TS) |
+| **Camila Paloma Hornos** | [@CamilaHornoss](https://github.com/CamilaHornoss) |
+| **Selenia Agustina Gómez** | [@seleniagomez](https://github.com/seleniagomez) |
+| **Camila Hernández González** | [@CamilaHernande7](https://github.com/CamilaHernande7) |
+| **Bruno Fabricio González Oviedo** | [@FabricioGonzalez99](https://github.com/FabricioGonzalez99) |
+
+</div>
+
+---
+
+<div align="center">
+
+### 🛒 Tienda OGA · Bases de Datos I · Equipo 30
+
+**De la planilla al SQL. De la venta al dato.** ✨
+
+⭐ **FaCENA · UNNE · 2026** ⭐
+
+</div>
