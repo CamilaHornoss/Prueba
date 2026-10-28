@@ -2,41 +2,56 @@
 
 ## 1. Definición y objetivo
 
-Los índices son estructuras auxiliares que permiten reducir el costo de acceso a los datos. Su conveniencia depende del patrón de consultas, la selectividad y el costo adicional que introducen sobre operaciones de escritura.
+Los índices son estructuras que SQL Server utiliza para localizar información de forma más eficiente. Su objetivo es reducir el trabajo necesario para resolver consultas frecuentes, especialmente sobre tablas con gran volumen de datos.
 
-La práctica busca comparar el comportamiento de una consulta por rango de fechas antes y después de aplicar distintos índices.
+La práctica compara una misma consulta por rango de fechas en tres escenarios para observar cambios en tiempos, lecturas lógicas y plan de ejecución.
 
-## 2. Carga masiva
+## 2. Ventajas y aplicaciones
 
-El archivo `sql/tecnico/indices/carga_masiva.sql` crea la tabla técnica `VentaRendimiento`, que contiene un campo `fecha`, y genera automáticamente **1.000.000 de registros** mediante una operación set-based.
+- Reducen tiempos de respuesta en búsquedas selectivas.
+- Disminuyen lecturas lógicas cuando el optimizador puede realizar búsquedas por índice.
+- Mejoran consultas frecuentes por fechas, códigos, clientes o productos.
+- Como contrapartida, consumen espacio y agregan costo de mantenimiento a `INSERT`, `UPDATE` y `DELETE`.
 
-Al finalizar, el script ejecuta `COUNT(*)` para comprobar la cantidad cargada.
+## 3. Caso aplicado a Tienda OGA
 
-## 3. Escenarios de prueba
+El archivo `sql/tecnico/indices/carga_masiva.sql` crea la tabla técnica `VentaRendimiento`, con una columna `fecha`, y genera automáticamente **1.000.000 de registros** para simular un historial de operaciones suficientemente grande.
 
-El archivo `sql/tecnico/indices/pruebas_indices.sql` ejecuta exactamente la misma búsqueda por período en tres escenarios:
+El script finaliza con `COUNT(*)` para verificar la cantidad de filas cargadas.
 
-1. **Sin índice:** permite observar el plan base y el costo de recorrer la tabla.
-2. **Índice `CLUSTERED` sobre `fecha, id`:** ordena físicamente las filas comenzando por la fecha y favorece búsquedas por rango.
-3. **Segundo índice `CLUSTERED` sobre `fecha` y las columnas consultadas:** incorpora `id_producto`, `cantidad`, `monto` e `id` como columnas clave para respetar literalmente la consigna de la cátedra.
+## 4. Escenarios de prueba
 
-Entre el segundo y el tercer escenario se elimina el índice anterior para que las pruebas sean comparables.
+El archivo `sql/tecnico/indices/pruebas_indices.sql` ejecuta la misma búsqueda por período en tres situaciones:
 
-## 4. Medición
+1. **Sin índice.** Se registra el comportamiento base de SQL Server.
+2. **Índice agrupado (`CLUSTERED`) sobre `fecha`.** Se repite exactamente la consulta y se registra el nuevo plan y las métricas.
+3. **Índice de cobertura (`NONCLUSTERED`) sobre `fecha` con columnas `INCLUDE`.** Luego de eliminar el índice agrupado, se crea un índice no agrupado que incluye `id_producto`, `cantidad` y `monto`, siguiendo la guía oficial de Etapa V 2026.
+
+## 5. Medición y evidencia
 
 El script habilita:
 
-- `SET STATISTICS IO ON`: informa lecturas lógicas y físicas;
-- `SET STATISTICS TIME ON`: informa CPU y tiempo transcurrido.
+```sql
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+```
 
-Además, en SSMS debe activarse **Include Actual Execution Plan** (`Ctrl+M`) antes de ejecutar cada escenario y conservar el plan como evidencia.
+En SSMS también debe activarse **Include Actual Execution Plan** (`Ctrl+M`). Para cada escenario se deben registrar:
 
-Los valores de tiempo y lecturas dependen del equipo, memoria, caché y carga de la instancia. Por ese motivo no se incluyen números inventados en el repositorio: deben registrarse a partir de la ejecución real.
+- tiempo de CPU;
+- tiempo total de ejecución;
+- lecturas lógicas;
+- operación principal del plan (`Table Scan`, `Index Seek`, etc.);
+- captura del plan de ejecución.
 
-## 5. Nota técnica
+Los valores dependen del hardware, memoria, caché e instancia utilizada, por lo que deben obtenerse mediante ejecución real y no se incorporan valores inventados al repositorio.
 
-SQL Server no permite usar `INCLUDE` en un índice `CLUSTERED`. Un índice agrupado almacena la fila completa en el nivel hoja. Para cumplir literalmente con la consigna de un segundo índice agrupado que contemple también las columnas seleccionadas, dichas columnas se incorporaron como columnas clave.
+## 6. Scripts
 
-## 6. Conclusión esperada
+- `sql/tecnico/indices/carga_masiva.sql`
+- `sql/tecnico/indices/pruebas_indices.sql`
+- `sql/tecnico/indices/eliminar_indices.sql`
 
-La prueba permite comprobar si el índice reduce lecturas y cambia el plan desde un recorrido completo hacia una estrategia de acceso más eficiente por rango de fecha. También permite observar que agregar columnas a una clave de índice aumenta su tamaño, por lo que la optimización debe evaluarse como un equilibrio entre velocidad de lectura, espacio y costo de mantenimiento.
+## 7. Conclusión
+
+La comparación permite verificar empíricamente el efecto de la indexación. Se espera que la consulta sin índice requiera mayor trabajo; que el índice sobre fecha facilite una búsqueda por rango; y que el índice de cobertura pueda resolver la consulta con menos accesos adicionales a la tabla al contener las columnas necesarias para responderla.
