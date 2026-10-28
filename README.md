@@ -14,6 +14,7 @@
 ![3FN](https://img.shields.io/badge/Normalización-3FN-0ea5e9?style=for-the-badge)
 ![ERDPlus](https://img.shields.io/badge/ERDPlus-DER-f59e0b?style=for-the-badge&logo=diagramsdotnet&logoColor=white)
 ![GitHub](https://img.shields.io/badge/Git%20%26%20GitHub-Control%20de%20versiones-181717?style=for-the-badge&logo=github&logoColor=white)
+![Etapa V](https://img.shields.io/badge/Etapa%20V-Implementada-22c55e?style=for-the-badge)
 
 <br>
 
@@ -43,7 +44,7 @@ La solución centraliza la información necesaria para administrar las operacion
 - 🛒 **Ventas:** encabezado, detalle y conservación del precio histórico.
 - 💳 **Pagos y cobranzas:** múltiples medios de pago y referencias de cobro.
 - 📊 **Consultas de negocio:** comprobantes, reportes agregados y análisis avanzados.
-- 🧠 **Temas técnicos:** procedimientos, funciones, transacciones, triggers, seguridad e índices.
+- 🧠 **Temas técnicos:** procedimientos, funciones, transacciones simples y anidadas, triggers, seguridad, roles e índices.
 
 ---
 
@@ -70,9 +71,9 @@ La solución centraliza la información necesaria para administrar las operacion
 | **II. Modelado** | ¿Cómo representamos la información? | DER + modelo relacional + 3FN | `docs/etapa-02/` | ✅ |
 | **III. Implementación** | ¿Cómo construimos la BD? | DDL + DML | `docs/etapa-03/`, `sql/ddl/`, `sql/dml/` | ✅ |
 | **IV. Consultas** | ¿Cómo obtenemos información? | SQL + casos de uso | `docs/etapa-04/`, `sql/consultas/` | ✅ |
-| **V. Temas técnicos** | ¿Cómo hacemos la solución más robusta? | Procedimientos, funciones, transacciones, triggers, seguridad e índices | `docs/etapa-05/`, `sql/tecnico/` | 🧪 |
+| **V. Temas técnicos** | ¿Cómo hacemos la solución más robusta? | Procedimientos, funciones, transacciones, triggers, seguridad e índices | `docs/etapa-05/`, `sql/tecnico/` | ✅ |
 
-> 🧪 La Etapa V contiene la implementación y scripts de demostración; las mediciones dependientes de la instancia, como planes de ejecución y tiempos, deben validarse en SSMS.
+> La implementación de Etapa V está completa. Los valores de rendimiento, planes de ejecución y verificación del modo de autenticación deben obtenerse ejecutando los scripts en la instancia real de SQL Server; el repositorio incluye una hoja específica para registrar esas evidencias sin inventar resultados.
 
 ---
 
@@ -86,7 +87,7 @@ Prueba/
 │   ├── etapa-02/        # Modelo relacional y normalización
 │   ├── etapa-03/        # Implementación e integridad
 │   ├── etapa-04/        # Consultas y casos de uso
-│   └── etapa-05/        # Temas técnicos
+│   └── etapa-05/        # Temas técnicos + checklist + evidencias
 │
 ├── sql/
 │   ├── ddl/             # Creación de la base y tablas
@@ -107,12 +108,12 @@ Prueba/
 
 ## 🚀 Puesta en marcha
 
-Ejecutar los scripts en **SQL Server Management Studio (SSMS)** siguiendo este orden:
+Ejecutar los scripts en **SQL Server Management Studio (SSMS)** siguiendo este orden inicial:
 
 1. `sql/ddl/crear_bd.sql`
 2. `sql/dml/datos_prueba.sql`
 3. Scripts de `sql/consultas/`
-4. Scripts de `sql/tecnico/` según el tema que se desee probar
+4. Para la Etapa V, seguir el orden detallado en `docs/etapa-05/README.md`
 
 La base utilizada por los scripts es:
 
@@ -130,16 +131,20 @@ ProyectoTiendaOGA
 
 ---
 
-## ⚙️ Temas técnicos
+## ⚙️ Etapa V — Temas técnicos
 
-La Etapa V incorpora prácticas de robustez, seguridad y optimización en SQL Server:
+La Etapa V cubre los requisitos 2026 de la cátedra:
 
-- **Procedimientos almacenados:** operaciones `INSERT`, `UPDATE` y `DELETE`.
-- **Funciones:** cálculos reutilizables sobre los datos del negocio.
-- **Transacciones:** `COMMIT`, `ROLLBACK`, manejo de errores y atomicidad.
-- **Triggers:** auditoría de cambios y control de eliminaciones.
-- **Seguridad:** usuarios, roles, permisos de lectura y permisos de ejecución.
-- **Índices:** carga masiva, mediciones con `STATISTICS IO/TIME` y comparación de estrategias de indexación.
+- **3 procedimientos CRUD:** `INSERT`, `UPDATE` y `DELETE` sobre Producto.
+- **3 funciones almacenadas:** total de venta, total comprado por cliente y cantidad vendida por producto.
+- **Benchmark:** comparación directa vs procedimientos/funciones con medición reproducible.
+- **Transacciones:** caso exitoso, error intencional con `ROLLBACK` y transacciones anidadas.
+- **Triggers:** auditoría de `UPDATE`/`DELETE` y bloqueo de eliminación de proveedores.
+- **Seguridad:** verificación de modo mixto, usuarios administrador/lector, `GRANT EXECUTE` y roles.
+- **Índices:** carga automática de 1.000.000 de filas, `STATISTICS IO/TIME` y comparación de índices agrupados.
+- **Validación final:** script que verifica objetos técnicos, usuarios, permisos, auditoría e índices.
+
+Documentación central: `docs/etapa-05/README.md`.
 
 ---
 
