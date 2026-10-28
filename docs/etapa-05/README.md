@@ -22,8 +22,8 @@ Esta etapa implementa los mecanismos solicitados para robustez, consistencia, se
 | Seguridad | Roles y comparación de acceso | ✅ `roles.sql` |
 | Índices | Carga de 1.000.000 registros con fecha | ✅ `carga_masiva.sql` |
 | Índices | Consulta sin índice + plan/tiempos | ✅ `pruebas_indices.sql` |
-| Índices | Índice agrupado sobre fecha | ✅ `pruebas_indices.sql` |
-| Índices | Segundo índice agrupado con columnas consultadas | ✅ `pruebas_indices.sql` |
+| Índices | Índice CLUSTERED sobre fecha | ✅ `pruebas_indices.sql` |
+| Índices | Índice de cobertura NONCLUSTERED sobre fecha + INCLUDE | ✅ `pruebas_indices.sql` |
 | Índices | Eliminar índices | ✅ `eliminar_indices.sql` |
 
 ## Orden recomendado de ejecución en SSMS
@@ -53,12 +53,12 @@ Esta etapa implementa los mecanismos solicitados para robustez, consistencia, se
 El repositorio contiene el código para producir todas las pruebas. Sin embargo, los siguientes resultados deben obtenerse ejecutando realmente en SQL Server/SSMS porque dependen de la instancia:
 
 - salida de `SERVERPROPERTY('IsIntegratedSecurityOnly')`;
-- mensajes de permisos de cada usuario;
+- comportamiento real de permisos para cada usuario;
 - salida de `STATISTICS IO` y `STATISTICS TIME`;
 - planes de ejecución reales antes y después de crear los índices;
 - tiempos medidos por `comparacion_eficiencia.sql`.
 
-No se incorporan valores ficticios. La plantilla `evidencias-ssms.md` indica qué registrar en la ejecución final.
+No se incorporan valores ficticios. La plantilla `evidencias-ssms.md` indica qué registrar durante la ejecución final.
 
 ## Archivos de documentación
 
