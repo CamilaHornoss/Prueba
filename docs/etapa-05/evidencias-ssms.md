@@ -101,7 +101,7 @@ Antes de ejecutar `pruebas_indices.sql`, activar **Include Actual Execution Plan
 - Tiempo transcurrido: Pendiente.
 - Captura/plan guardado: Pendiente.
 
-### Escenario B — Índice agrupado por fecha
+### Escenario B — Índice CLUSTERED sobre fecha
 
 - Tipo de acceso observado: Pendiente.
 - Lecturas lógicas: Pendiente.
@@ -109,7 +109,7 @@ Antes de ejecutar `pruebas_indices.sql`, activar **Include Actual Execution Plan
 - Tiempo transcurrido: Pendiente.
 - Captura/plan guardado: Pendiente.
 
-### Escenario C — Segundo índice agrupado con columnas de la consulta
+### Escenario C — Índice de cobertura NONCLUSTERED sobre fecha + INCLUDE
 
 - Tipo de acceso observado: Pendiente.
 - Lecturas lógicas: Pendiente.
@@ -119,4 +119,4 @@ Antes de ejecutar `pruebas_indices.sql`, activar **Include Actual Execution Plan
 
 ### Conclusión
 
-Comparar los tres escenarios usando datos reales de la instancia y explicar si el costo de lectura disminuyó, qué cambio se observó en el plan y qué costo adicional implica mantener índices más grandes.
+Comparar los tres escenarios usando datos reales de la instancia y explicar si disminuyeron las lecturas y tiempos, qué cambios se observaron en el plan y qué costo adicional implica mantener índices.
